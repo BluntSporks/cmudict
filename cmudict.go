@@ -5,6 +5,7 @@ import (
 	"bufio"
 	"log"
 	"os"
+	"path"
 	"regexp"
 	"strings"
 )
@@ -31,6 +32,26 @@ func HasAccent(phoneme string) bool {
 func IsVowel(phoneme string) bool {
 	first := phoneme[0]
 	return first == 'A' || first == 'E' || first == 'I' || first == 'O' || first == 'U'
+}
+
+// LoadDefaultDict loads the CMU dictionary file from the location specified by the CMUDICT environment variable.
+func LoadDefaultDict() map[string]string {
+	dir := os.Getenv("CMUDICT")
+	if dir == "" {
+		log.Fatal("Set CMUDICT variable to directory of dictionary file")
+	}
+	path := os.Join(dir, "cmudict.0.7a")
+	return LoadDict(path)
+}
+
+// LoadDefaultSymbols loads the CMU symbols file from the location specified by the CMUDICT environment variable.
+func LoadDefaultSymbols(accent bool) map[string]bool {
+	dir := os.Getenv("CMUDICT")
+	if dir == "" {
+		log.Fatal("Set CMUDICT variable to directory of symbols file")
+	}
+	path := os.Join(dir, "cmudict.0.7a.symbols")
+	return LoadSymbols(path, accent)
 }
 
 // LoadDict loads the CMU dictionary file and returns it as a map.
@@ -107,8 +128,8 @@ func StripAccent(phoneme string) string {
 	return phoneme
 }
 
-// StripWordIndex removes the index number in parentheses from the end of a word.
-func StripWordIndex(word string) string {
+// StripIndex removes the index number in parentheses from the end of a word.
+func StripIndex(word string) string {
 	n := len(word)
 	if n > 3 {
 		last := word[n-1]
