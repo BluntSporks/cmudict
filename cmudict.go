@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 	"path"
-	"regexp"
 	"strings"
 )
 
@@ -16,7 +15,7 @@ func DefaultDictPath() string {
 	if dir == "" {
 		log.Fatal("Set CMUDICT_DATA variable to directory of dictionary file")
 	}
-	return os.Join(dir, "cmudict.0.7a")
+	return path.Join(dir, "cmudict.0.7a")
 }
 
 // DefaultSymbolPath gets the CMU symbols file location from the CMUDICT_DATA environment variable.
@@ -25,7 +24,7 @@ func DefaultSymbolPath() string {
 	if dir == "" {
 		log.Fatal("Set CMUDICT_DATA variable to directory of symbols file")
 	}
-	return os.Join(dir, "cmudict.0.7a.symbols")
+	return path.Join(dir, "cmudict.0.7a.symbols")
 }
 
 // GetPhonemes returns the list of phonemes from a string, with or without accents.
@@ -86,7 +85,7 @@ func LoadDict(file string) map[string]string {
 // This function removes the vowels symbols without accent numbers.
 func LoadSymbols(file string, accent bool) map[string]bool {
 	// Open file.
-	handle, err := os.Open()
+	handle, err := os.Open(file)
 	if err != nil {
 		log.Fatal(err)
 	}
