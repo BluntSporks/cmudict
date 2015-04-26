@@ -10,20 +10,20 @@ import (
 	"strings"
 )
 
-// DefaultDictPath gets the CMU dictionary file location from the CMUDICT environment variable.
+// DefaultDictPath gets the CMU dictionary file location from the CMUDICT_DATA environment variable.
 func DefaultDictPath() string {
-	dir := os.Getenv("CMUDICT")
+	dir := os.Getenv("CMUDICT_DATA")
 	if dir == "" {
-		log.Fatal("Set CMUDICT variable to directory of dictionary file")
+		log.Fatal("Set CMUDICT_DATA variable to directory of dictionary file")
 	}
 	return os.Join(dir, "cmudict.0.7a")
 }
 
-// DefaultSymbolPath gets the CMU symbols file location from the CMUDICT environment variable.
+// DefaultSymbolPath gets the CMU symbols file location from the CMUDICT_DATA environment variable.
 func DefaultSymbolPath() string {
-	dir := os.Getenv("CMUDICT")
+	dir := os.Getenv("CMUDICT_DATA")
 	if dir == "" {
-		log.Fatal("Set CMUDICT variable to directory of symbols file")
+		log.Fatal("Set CMUDICT_DATA variable to directory of symbols file")
 	}
 	return os.Join(dir, "cmudict.0.7a.symbols")
 }
