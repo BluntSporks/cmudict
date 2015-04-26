@@ -10,6 +10,24 @@ import (
 	"strings"
 )
 
+// DefaultDictPath gets the CMU dictionary file location from the CMUDICT environment variable.
+func DefaultDictPath() string {
+	dir := os.Getenv("CMUDICT")
+	if dir == "" {
+		log.Fatal("Set CMUDICT variable to directory of dictionary file")
+	}
+	return os.Join(dir, "cmudict.0.7a")
+}
+
+// DefaultSymbolPath gets the CMU symbols file location from the CMUDICT environment variable.
+func DefaultSymbolPath() string {
+	dir := os.Getenv("CMUDICT")
+	if dir == "" {
+		log.Fatal("Set CMUDICT variable to directory of symbols file")
+	}
+	return os.Join(dir, "cmudict.0.7a.symbols")
+}
+
 // GetPhonemes returns the list of phonemes from a string, with or without accents.
 func GetPhonemes(pron string, accent bool) []string {
 	phonemes := strings.Split(pron, " ")
@@ -32,26 +50,6 @@ func HasAccent(phoneme string) bool {
 func IsVowel(phoneme string) bool {
 	first := phoneme[0]
 	return first == 'A' || first == 'E' || first == 'I' || first == 'O' || first == 'U'
-}
-
-// LoadDefaultDict loads the CMU dictionary file from the location specified by the CMUDICT environment variable.
-func LoadDefaultDict() map[string]string {
-	dir := os.Getenv("CMUDICT")
-	if dir == "" {
-		log.Fatal("Set CMUDICT variable to directory of dictionary file")
-	}
-	path := os.Join(dir, "cmudict.0.7a")
-	return LoadDict(path)
-}
-
-// LoadDefaultSymbols loads the CMU symbols file from the location specified by the CMUDICT environment variable.
-func LoadDefaultSymbols(accent bool) map[string]bool {
-	dir := os.Getenv("CMUDICT")
-	if dir == "" {
-		log.Fatal("Set CMUDICT variable to directory of symbols file")
-	}
-	path := os.Join(dir, "cmudict.0.7a.symbols")
-	return LoadSymbols(path, accent)
 }
 
 // LoadDict loads the CMU dictionary file and returns it as a map.
