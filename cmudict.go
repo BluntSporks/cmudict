@@ -18,8 +18,8 @@ func DefaultDictPath() string {
 	return path.Join(dir, "cmudict.0.7a")
 }
 
-// DefaultSymbolPath gets the CMU symbols file location from the CMUDICT_DATA environment variable.
-func DefaultSymbolPath() string {
+// DefaultSymPath gets the CMU symbols file location from the CMUDICT_DATA environment variable.
+func DefaultSymPath() string {
 	dir := os.Getenv("CMUDICT_DATA")
 	if dir == "" {
 		log.Fatal("Set CMUDICT_DATA variable to directory of symbols file")
@@ -81,9 +81,9 @@ func LoadDict(file string) map[string]string {
 	return dict
 }
 
-// LoadSymbols loads the CMU symbols file and returns it as a map.
+// LoadSyms loads the CMU symbols file and returns it as a map.
 // This function removes the vowels symbols without accent numbers.
-func LoadSymbols(file string, accent bool) map[string]bool {
+func LoadSyms(file string, accent bool) map[string]bool {
 	// Open file.
 	handle, err := os.Open(file)
 	if err != nil {
@@ -92,7 +92,7 @@ func LoadSymbols(file string, accent bool) map[string]bool {
 	defer handle.Close()
 
 	// Scan file line by line.
-	symbols := make(map[string]bool)
+	syms := make(map[string]bool)
 	scanner := bufio.NewScanner(handle)
 	for scanner.Scan() {
 		phoneme := scanner.Text()
@@ -110,9 +110,9 @@ func LoadSymbols(file string, accent bool) map[string]bool {
 				continue
 			}
 		}
-		symbols[phoneme] = true
+		syms[phoneme] = true
 	}
-	return symbols
+	return syms
 }
 
 // StripAccent removes the accent number from a phoneme.

@@ -9,3 +9,12 @@ affiliated with Carnegie Mellon or the CMU Pronouncing Dictionary project.
 Set the CMUDICT_DATA variable to the path to the data directory of this project. For example:
 
 export CMUDICT_DATA=$HOME/go/src/github.com/BluntSporks/cmudict/data
+
+# Short forms
+Here is a list of short forms used.
+
+| short | full |
+| ----- | ---- |
+| dict | dictionary |
+| pron | pronunciation |
+| sym | symbol |
