@@ -11,10 +11,4 @@ Set the CMUDICT_DATA variable to the path to the data directory of this project.
 export CMUDICT_DATA=$HOME/go/src/github.com/BluntSporks/cmudict/data
 
 # Short forms
-Here is a list of short forms used.
-
-| short | full |
-| ----- | ---- |
-| dict | dictionary |
-| pron | pronunciation |
-| sym | symbol |
+See [short-names](https://www.github.com/BluntSporks/short-names) for a list of abbreviations used.
