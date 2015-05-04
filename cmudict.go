@@ -54,15 +54,15 @@ func IsVowel(phoneme string) bool {
 // LoadDict loads the CMU dictionary file and returns it as a map.
 func LoadDict(file string) map[string]string {
 	// Open file.
-	handle, err := os.Open(file)
+	hdl, err := os.Open(file)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer handle.Close()
+	defer hdl.Close()
 
 	// Scan file line by line.
 	dict := make(map[string]string)
-	scanner := bufio.NewScanner(handle)
+	scanner := bufio.NewScanner(hdl)
 	for scanner.Scan() {
 		line := scanner.Text()
 		if err := scanner.Err(); err != nil {
@@ -73,9 +73,9 @@ func LoadDict(file string) map[string]string {
 		if line[:3] == ";;;" {
 			continue
 		}
-		fields := strings.Split(line, "  ")
-		word := fields[0]
-		pron := fields[1]
+		flds := strings.Split(line, "  ")
+		word := flds[0]
+		pron := flds[1]
 		dict[word] = pron
 	}
 	return dict
@@ -85,15 +85,15 @@ func LoadDict(file string) map[string]string {
 // This function removes the vowels symbols without accent numbers.
 func LoadSyms(file string, accent bool) map[string]bool {
 	// Open file.
-	handle, err := os.Open(file)
+	hdl, err := os.Open(file)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer handle.Close()
+	defer hdl.Close()
 
 	// Scan file line by line.
 	syms := make(map[string]bool)
-	scanner := bufio.NewScanner(handle)
+	scanner := bufio.NewScanner(hdl)
 	for scanner.Scan() {
 		phoneme := scanner.Text()
 		if err := scanner.Err(); err != nil {
