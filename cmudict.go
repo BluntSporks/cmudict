@@ -7,8 +7,6 @@ import (
 	"os"
 	"path"
 	"strings"
-
-	"github.com/BluntSporks/cmudict"
 )
 
 // DefaultDictPath gets the CMU dictionary file location from the CMUDICT_DATA environment variable.
@@ -61,7 +59,7 @@ func FixPhonemes(phonemes []string) []string {
 				}
 			} else if ph == "N" && newPhonemes[i+1] == "G" {
 				split = true
-			} else if cmudict.IsVowel(ph) && cmudict.IsVowel(newPhonemes[i+1]) {
+			} else if IsVowel(ph) && IsVowel(newPhonemes[i+1]) {
 				split = true
 			}
 			if split {
